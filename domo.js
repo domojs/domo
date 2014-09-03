@@ -31,13 +31,20 @@ define('domo', function (require) {
   };
 });
 
-define('env.dom.query', function () {
+define('env.dom.query', function (require) {
   'use strict';
+  
+  var isString = require('mu.type.string');
   
   var query = function (selector, context) {
     context = context || document;
-    var nodeList = context.querySelectorAll(selector);
-    return [].slice.call(nodeList);
+    
+    if (isString(selector)) {
+      var nodeList = context.querySelectorAll(selector);
+      return [].slice.call(nodeList);
+    }
+    
+    return [selector];
   };
   
   return query;
