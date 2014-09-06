@@ -7,8 +7,8 @@ define('domo', function (require) {
       map       = require('mu.list.map'),
       query     = require('env.dom.query');
   
-  var plug = function (plugins, selector) {
-    var nodes = query(selector);
+  var plug = function (plugins, selector, context) {
+    var nodes = query(selector, context);
     
     var plugged = map(plugins, function (plugin) {
       var proxy = bind(plugin, nodes);
