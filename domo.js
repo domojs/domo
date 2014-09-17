@@ -1,51 +1,61 @@
 define('domo', function (require) {
   'use strict';
   
-  var bind      = require('mu.fn.bind'),
-      apply     = require('mu.fn.apply'),
-      multiplex = require('mu.fn.multiplex'),
-      map       = require('mu.list.map'),
-      query     = require('env.dom.query');
+  var is   = require('mu.is'),
+      fn   = require('mu.fn'),
+      list = require('mu.list');
   
-  var plug = function (plugins, selector, context) {
-    var nodes = query(selector, context);
+  var multiplex = function (func) {
+    var multiplexed = function () {
+      var argv = [].slice.call(arguments),
+          arr = argv.shift();
+          
+      each(arr, function (item) {
+        apply(partial(func, item), argv);
+      });
+    };
     
-    var plugged = map(plugins, function (plugin) {
-      var proxy = bind(plugin, nodes);
+    return multiplexed;
+  };
+  
+  var pluggable = function (socket) {
+    var plugged = function () {
+      var argv = [].slice.call(arguments),
+          plugins = argv.shift(),
+          data = fn.apply(socket, argv);
+    
+      var chain = list.map(plugins, function (plugin) {
+        plugin = is.array(data) ? multiplex(plugin) : plugin;
+        
+        return function () {
+          var value = fn.apply(fn.partial(plugin, data), arguments);
+          return is.defined(value) ? value : chain;
+        };
+      });
       
-      return function () {
-        apply(proxy, arguments);
-        return plugged;
-      };
-    });
+      return chain;
+    };
     
-    return plugged;
+    var use = function (plugins) {
+      return fn.partial(plugged, plugins);
+    };
+    
+    return {
+      use: use
+    };
+  };
+
+  var query = function (selector, context) {
+    context = context || document;
+    if (is.string(selector)) { return context.querySelectorAll(selector); }
+    return [selector];
   };
   
   var use = function (plugins) {
-    return bind(plug, map(plugins, multiplex));
+    return plug(query, plugins);
   };
   
   return {
     use: use
   };
-});
-
-define('env.dom.query', function (require) {
-  'use strict';
-  
-  var isString = require('mu.type.string');
-  
-  var query = function (selector, context) {
-    context = context || document;
-    
-    if (isString(selector)) {
-      var nodeList = context.querySelectorAll(selector);
-      return [].slice.call(nodeList);
-    }
-    
-    return [selector];
-  };
-  
-  return query;
 });
