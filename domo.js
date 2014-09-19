@@ -1,4 +1,4 @@
-define('domo', function (require) {
+define('mu.api', function (require) {
   'use strict';
   
   var is   = require('mu.is'),
@@ -6,56 +6,67 @@ define('domo', function (require) {
       list = require('mu.list');
   
   var multiplex = function (func) {
-    var multiplexed = function () {
+    var multiplexed = function (/* arr, args... */) {
       var argv = [].slice.call(arguments),
-          arr = argv.shift();
+          arr = argv.shift(),
+          args = argv;
           
       each(arr, function (item) {
-        apply(partial(func, item), argv);
+        fn.apply(fn.partial(func, item), args);
       });
     };
     
     return multiplexed;
   };
   
-  var pluggable = function (socket) {
-    var plugged = function () {
-      var argv = [].slice.call(arguments),
-          plugins = argv.shift(),
-          data = fn.apply(socket, argv);
-    
-      var chain = list.map(plugins, function (plugin) {
-        plugin = is.array(data) ? multiplex(plugin) : plugin;
+  var chain = function (/* api , partials... */) {
+    var argv = [].slice.call(arguments),
+        api = argv.shift(),
+        partials = argv;
         
-        return function () {
-          var value = fn.apply(fn.partial(plugin, data), arguments);
-          return is.defined(value) ? value : chain;
-        };
-      });
+    var chained = list.map(api, function (func) {
+      func = fn.apply(fn.partial(fn.partial, func), partials);
       
-      return chain;
-    };
+      return function () {
+        var value = fn.apply(func, arguments);
+        return is.defined(value) ? value : chained;
+      };
+    });
     
-    var use = function (plugins) {
-      return fn.partial(plugged, plugins);
-    };
-    
-    return {
-      use: use
-    };
+    return chained;
   };
+  
+  var plug = function (socket, plugins) {
+    var plugged = function (/* arguments... */) {
+      var data = fn.apply(socket, arguments);
+      if (is.array(data)) { plugins = list.map(plugins, multiplex); }
+      return chain(plugins, data);
+    };
+    
+    return plugged;
+  };
+  
+  return {
+    multiplex: multiplex,
+    chain: chain,
+    plug: plug
+  };
+});
+
+define('domo', function (require) {
+  'use strict';
+  
+  var is  = require('mu.is'),
+      fn  = require('mu.fn'),
+      api = require('mu.api');
 
   var query = function (selector, context) {
     context = context || document;
     if (is.string(selector)) { return context.querySelectorAll(selector); }
-    return [selector];
-  };
-  
-  var use = function (plugins) {
-    return plug(query, plugins);
+    return selector;
   };
   
   return {
-    use: use
+    use: fn.partial(api.plug, query)
   };
 });
