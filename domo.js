@@ -27,10 +27,12 @@ define('mu.api', function (require) {
     var chained = list.map(api, function (func) {
       func = fn.apply(fn.partial(fn.partial, func), partials);
       
-      return function () {
+      var link = function () {
         var value = fn.apply(func, arguments);
         return is.defined(value) ? value : chained;
       };
+      
+      return link;
     });
     
     return chained;
