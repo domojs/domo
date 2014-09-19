@@ -11,8 +11,8 @@ define('mu.api', function (require) {
           arr = argv.shift(),
           args = argv;
           
-      each(arr, function (item) {
-        fn.apply(fn.partial(func, item), args);
+      return each(arr, function (item) {
+        return fn.apply(fn.partial(func, item), args);
       });
     };
     
