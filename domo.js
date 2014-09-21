@@ -115,7 +115,7 @@ define('domo.addClass', function (require) {
 define('domo.removeClass', function (require) {
   'use strict';
   
-  var isDefined = require('mu.type.defined'),
+  var isDefined = require('mu.is.defined'),
       remove    = require('mu.list.remove'),
       classList = require('domo.classList');
   
