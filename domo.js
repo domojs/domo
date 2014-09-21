@@ -104,9 +104,7 @@ define('domo.addClass', function (require) {
   
   var addClass = function (node, className) {
     var list = classList(node);
-    
     if (contains(list, className)) { return }
-    
     list.push(className);
     node.className = list.join(' ');
   };
