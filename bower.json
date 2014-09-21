@@ -1,0 +1,30 @@
+{
+  "name": "domo",
+  "description": "Pluggable DOM selector",
+  "version": "0.1.0",
+  "main": "domo.js",
+  "dependencies": {
+    "define": "*",
+    "mu.is": "*",
+    "mu.fn": "*",
+    "mu.list": "*",
+    "mu.api": "*"
+  },
+  "keywords": [
+    "dom",
+    "selector",
+    "pluggable",
+    "plugins",
+    "native",
+    "empty",
+    "append",
+    "on",
+    "css",
+    "classList",
+    "hasClass",
+    "addClass",
+    "removeClass",
+    "toggleClass"
+  ],
+  "license": "MIT"
+}
