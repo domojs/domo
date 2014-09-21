@@ -7,15 +7,10 @@ Usage
 =====
 
 ```js
-var domo       = require('domo'),
-    domoNative = require('domo.native'),
-    domoCss    = require('domo.css'),
-    domoOn     = require('domo.on');
-
-var dom = domo.use({
-  native: domoNative,
-  css: domoCss,
-  on: domoOn
+var dom = require('domo').use({
+  native: require('domo.native'),
+  css:    require('domo.css'),
+  on:     require('domo.on')
 });
 
 var body = dom('body')
