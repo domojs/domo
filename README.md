@@ -43,7 +43,7 @@ Append HTML to selected elements
 html
 ----
 
-Replace HTML from selected items
+Replace HTML from selected elements
 
 on
 --
