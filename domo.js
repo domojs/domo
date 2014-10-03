@@ -46,14 +46,14 @@ define('domo.append', function () {
   return append;
 });
 
-define('domo.replaceWith', function () {
+define('domo.html', function () {
   'use strict';
 
-  var replaceWith = function (node, content) {
+  var html = function (node, content) {
     node.innerHTML = content;
   };
 
-  return replaceWith;
+  return html;
 });
 
 define('domo.on', function () {

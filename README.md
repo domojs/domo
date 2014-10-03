@@ -8,14 +8,14 @@ Usage
 
 ```js
 var dom = require('domo').use({
-  append: require('domo.append'),
+  html:   require('domo.html'),
   css:    require('domo.css'),
   on:     require('domo.on')
 });
 
 var body = dom('body')
 .css({ backgroundColor: 'red', color: 'white' })
-.append('<h1>Click me!</h1>');
+.html('<h1>Click me!</h1>');
 
 dom('h1').on('click', function () {
   body.css({ backgroundColor: 'blue' });
@@ -39,6 +39,11 @@ append
 ------
 
 Append HTML to selected elements
+
+html
+----
+
+Replace HTML from selected items
 
 on
 --
