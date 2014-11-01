@@ -22,6 +22,22 @@ dom('h1').on('click', function () {
 });
 ```
 
+API
+===
+
+Empty selectors
+---------------
+
+With null selectors domo plugins are not called but they keep returning the
+chain preventing `TypeError` exceptions
+
+```js
+dom('#nonexistent').foo().bar().qux();
+```
+
+Assuming `foo`, `bar` and `qux` are loaded plugins, the previous code does
+nothing but don't crash
+
 Plugins
 =======
 
