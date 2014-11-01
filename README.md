@@ -28,7 +28,9 @@ API
 Empty selectors
 ---------------
 
-With null selectors domo plugins are not called but they keep returning the
+domo uses [mujs plug](github.com/mujs/mu.api) as a plugin system
+
+with null selectors domo plugins are not called but they keep returning the
 chain preventing `TypeError` exceptions
 
 ```js
