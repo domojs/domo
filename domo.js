@@ -152,3 +152,23 @@ define('domo.toggleClass', function (require) {
   
   return toggleClass;
 });
+
+define('domo.attr', function () {
+  'use strict';
+
+  var attr = function (node, attrName) {
+    return node[attrName];
+  };
+
+  return attr;
+});
+
+define('domo.val', function () {
+  'use strict';
+
+  var val = function (node) {
+    return node.value;
+  };
+
+  return val;
+});

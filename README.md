@@ -96,4 +96,15 @@ Remove a class of selected elements
 toggleClass
 -----------
 
-Add or remove a class to selected elements depending on the presence of the class
+Add or remove a class to selected elements depending on the presence of the
+class
+
+attr
+----
+
+Return the attribute value of the first selected element
+
+val
+---
+
+Return the value of the first selected element
