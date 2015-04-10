@@ -108,3 +108,23 @@ val
 ---
 
 Return the value of the first selected element
+
+index
+-----
+
+Return the index of the node
+
+```html
+<ul>
+  <li id="first"></li>
+  <li id="second"></li>
+  <li id="third"></li>
+</ul>
+```
+
+```js
+expect(dom('#first').index()).toBe(0);
+expect(dom('#second').index()).toBe(1);
+expect(dom('#third').index()).toBe(2);
+```
+

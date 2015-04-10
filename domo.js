@@ -172,3 +172,18 @@ define('domo.val', function () {
 
   return val;
 });
+
+define('domo.index', function (require) {
+  'use strict';
+
+  var each = require('mu.list.each');
+
+  var index = function (node) {
+    return each(node.parentNode.children, function (item, index) {
+      if (item === node) { return index; }
+    });
+  };
+
+  return index;
+});
+
