@@ -36,11 +36,18 @@ define('domo.empty', function () {
   return empty;
 });
 
-define('domo.append', function () {
+define('domo.append', function (require) {
   'use strict';
 
+  var isString = require('mu.is.string');
+
   var append = function (node, content) {
-    node.innerHTML += content;
+    if (isString(content)) {
+      node.innerHTML += content;
+      return;
+    }
+
+    node.parentNode.appendChild(content);
   };
 
   return append;
