@@ -125,6 +125,10 @@ Return the attribute value of the first selected element
 val
 ---
 
+Getter setter.
+
+If an argument is passed it is assigned to the first selected element value
+
 Return the value of the first selected element
 
 index

@@ -180,10 +180,13 @@ define('domo.attr', function () {
   return attr;
 });
 
-define('domo.val', function () {
+define('domo.val', function (require) {
   'use strict';
 
-  var val = function (node) {
+  var isDefined = require('mu.is.defined')
+
+  var val = function (node, newVal) {
+    if (isDefined(newVal)) { node.value = newVal }
     return node.value;
   };
 
