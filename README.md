@@ -131,6 +131,25 @@ If an argument is passed it is assigned to the first selected element value
 
 Return the value of the first selected element
 
+```html
+<input class="first arg" type="text" />
++ <input class="second arg" type="text" /><br />
+= <input id="result" type="text" readonly />
+```
+
+```js
+var int = function (arg) {
+  return parseInt(arg, 10) || 0;
+};
+
+dom('.arg').on('input', function () {
+  var first = int(dom('.first.arg').val()),
+      second = int(dom('.second.arg').val()),
+
+  dom('#result').val(first + second);
+});
+```
+
 index
 -----
 
