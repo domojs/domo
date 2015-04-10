@@ -63,6 +63,16 @@ define('domo.html', function () {
   return html;
 });
 
+define('domo.clone', function () {
+  'use strict';
+
+  var clone = function (node) {
+    return node.cloneNode(true);
+  };
+
+  return clone;
+});
+
 define('domo.on', function () {
   'use strict';
   

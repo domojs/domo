@@ -56,12 +56,30 @@ Remove all child elements of selected elements
 append
 ------
 
-Append HTML to selected elements
+Append HTML or DOM nodes to selected elements
+
+```html
+<div id="title"></div>
+
+<ul id="list">
+  <li class="item">Item</i>
+</ul>
+```
+
+```js
+dom('#title').append('<h1>Title</h1>');
+dom('#list').append(dom('#list.item').clone());
+```
 
 html
 ----
 
 Replace HTML from selected elements
+
+clone
+-----
+
+Clone a DOM node and its children
 
 on
 --
