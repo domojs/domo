@@ -169,3 +169,15 @@ expect(dom('#second').index()).toBe(1);
 expect(dom('#third').index()).toBe(2);
 ```
 
+parent
+------
+
+Return the parent node of the first selected node
+
+```js
+var tpl = dom('#template'),
+    parent = tpl.parent(),
+    copy = tpl.clone;
+
+dom(parent).append(copy());
+```

@@ -207,3 +207,13 @@ define('domo.index', function (require) {
   return index;
 });
 
+define('domo.parent', function () {
+  'use strict';
+
+  var parent = function (node) {
+    return node.parentNode;
+  };
+
+  return parent;
+});
+
