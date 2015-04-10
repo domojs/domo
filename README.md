@@ -175,9 +175,7 @@ parent
 Return the parent node of the first selected node
 
 ```js
-var tpl = dom('#template'),
-    parent = tpl.parent(),
-    copy = tpl.clone;
+var tpl = dom('#template');
 
-dom(parent).append(copy());
+dom(tpl.parent()).append(tpl.clone());
 ```
