@@ -76,11 +76,6 @@ html
 
 Replace HTML from selected elements
 
-clone
------
-
-Clone a DOM node and its children
-
 on
 --
 
@@ -178,4 +173,28 @@ Return the parent node of the first selected node
 var tpl = dom('#template');
 
 dom(tpl.parent()).append(tpl.clone());
+```
+
+clone
+-----
+
+Return a clone the first selected node and its children
+
+remove
+------
+
+Remove all selected elements
+
+```html
+<ul id="list">
+  <li>One</li>
+  <li class="remove">Two</li>
+  <li>Three</li>
+  <li class="remove">Four</li>
+  <li>Five</li>
+</ul>
+```
+
+```js
+dom('#list .remove').remove();
 ```

@@ -63,16 +63,6 @@ define('domo.html', function () {
   return html;
 });
 
-define('domo.clone', function () {
-  'use strict';
-
-  var clone = function (node) {
-    return node.cloneNode(true);
-  };
-
-  return clone;
-});
-
 define('domo.on', function () {
   'use strict';
   
@@ -217,3 +207,22 @@ define('domo.parent', function () {
   return parent;
 });
 
+define('domo.clone', function () {
+  'use strict';
+
+  var clone = function (node) {
+    return node.cloneNode(true);
+  };
+
+  return clone;
+});
+
+define('domo.remove', function () {
+  'use strict';
+
+  var remove = function (node) {
+    node.parentNode.removeChild(node);
+  };
+
+  return remove;
+});
