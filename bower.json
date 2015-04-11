@@ -1,7 +1,7 @@
 {
   "name": "domo",
   "description": "Pluggable DOM selector",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "main": "domo.js",
   "dependencies": {
     "define": "*",

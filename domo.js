@@ -47,7 +47,7 @@ define('domo.append', function (require) {
       return;
     }
 
-    node.parentNode.appendChild(content);
+    node.appendChild(content);
   };
 
   return append;
