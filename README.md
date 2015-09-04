@@ -25,12 +25,19 @@ dom('h1').on('click', function () {
 API
 ===
 
+Selectors
+---------
+
+**domo** uses `querySelectorAll` internally
+
+[CSS selector syntax](http://www.w3.org/TR/CSS2/selector.html)
+
 Empty selectors
 ---------------
 
-domo uses [mujs plug](http://github.com/mujs/mu.api) as a plugin system
+**domo** uses [mujs plug](http://github.com/mujs/mu.api) as a plugin system
 
-with null selectors domo plugins are not called but they keep returning the
+with null selectors **domo** plugins are not called but they keep returning the
 chain preventing `TypeError` exceptions
 
 ```js
@@ -40,10 +47,20 @@ dom('#nonexistent').foo().bar().qux();
 Assuming `foo`, `bar` and `qux` are loaded plugins, the previous code does
 nothing but don't crash
 
-each
-----
+Document fragments
+------------------
 
-Direct access to selected nodes
+**domo** accepts a HTML string as input instead of a selector
+
+HTML strings are detected if its 1st character is `<`
+
+In such cases, a new document fragment is created and filled with the
+provided markup. The fragment is not attached to the DOM tree
+
+Iterate over selected nodes
+---------------------------
+
+`each` provides direct access to selected nodes
 
 ```js
 dom('button').each(function (node) {

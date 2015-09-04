@@ -5,14 +5,33 @@ define('domo', function (require) {
       partial  = require('mu.fn.partial'),
       plug     = require('mu.api.plug');
 
-  var query = function (selector, context) {
-    context = context || document;
-    if (isString(selector)) { return context.querySelectorAll(selector); }
+  var fragment = function (html) {
+    var doc = document.createDocumentFragment(),
+        div = document.createElement('div'),
+        it;
+
+    div.innerHTML = html;
+    while (it = div.firstChild) { doc.appendChild(it); }
+    return doc;
+  };
+
+  var isFragment = function (selector) {
+    return isString(selector) && selector[0] === '<';
+  };
+
+  var domo = function (selector, context) {
+    if (isFragment(selector)) { return fragment(selector); }
+
+    if (isString(selector)) {
+      context = context || document;
+      return context.querySelectorAll(selector);
+    }
+
     return selector;
   };
 
   return {
-    use: partial(plug, query)
+    use: partial(plug, domo)
   };
 });
 
