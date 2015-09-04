@@ -40,21 +40,38 @@ dom('#nonexistent').foo().bar().qux();
 Assuming `foo`, `bar` and `qux` are loaded plugins, the previous code does
 nothing but don't crash
 
-Plugins
-=======
+each
+----
 
-native
-------
+Direct access to selected nodes
 
-Get native access to selected elements
+```js
+dom('button').each(function (node) {
+  if (node.click) { node.click(); }
+});
+```
 
-empty
------
+Builtin plugins
+===============
 
-Remove all child elements of selected elements
+HTML content
+------------
 
-append
-------
+### html
+
+Chainable setter
+
+Replace HTML from selected elements
+
+### empty
+
+Chainable setter
+
+Remove all children of selected elements
+
+### append
+
+Chainable setter
 
 Append HTML or DOM nodes to selected elements
 
@@ -71,56 +88,61 @@ dom('#title').append('<h1>Title</h1>');
 dom('#list').append(dom('#list.item').clone());
 ```
 
-html
-----
+Properties
+----------
 
-Replace HTML from selected elements
+### attr
 
-on
---
+Chain breaker getter / chainable setter
 
-Add event listeners to selected elements
+Return the attribute value of the first selected element
 
-css
----
+### css
+
+Chain breaker getter / chainable setter
 
 Alter CSS properties of selected elements
 
-classList
----------
+Class
+-----
+
+### classList
+
+Chain breaker getter
 
 Get an array of classes of the first selected element
 
-hasClass
---------
+### hasClass
+
+Chain breaker getter
 
 Check if a class is in the first selected element
 
-addClass
---------
+### addClass
+
+Chainable setter
 
 Add a class to selected elements
 
-removeClass
------------
+### removeClass
+
+Chainable setter
 
 Remove a class of selected elements
 
-toggleClass
------------
+### toggleClass
+
+Chainable setter
 
 Add or remove a class to selected elements depending on the presence of the
 class
 
-attr
-----
+User input
+----------
 
-Return the attribute value of the first selected element
+### val
 
-val
----
-
-Getter setter.
+Chain breaker getter / chain breaker setter
 
 If an argument is passed it is assigned to the first selected element value
 
@@ -145,43 +167,27 @@ dom('.arg').on('input', function () {
 });
 ```
 
-index
------
+Event listeners
+---------------
 
-Return the index of the node
+### on
 
-```html
-<ul>
-  <li id="first"></li>
-  <li id="second"></li>
-  <li id="third"></li>
-</ul>
-```
+Chainable setter
 
-```js
-expect(dom('#first').index()).toBe(0);
-expect(dom('#second').index()).toBe(1);
-expect(dom('#third').index()).toBe(2);
-```
+Add event listeners to selected elements
 
-parent
-------
+Tree manipulation
+-----------------
 
-Return the parent node of the first selected node
+### clone
 
-```js
-var tpl = dom('#template');
-
-dom(tpl.parent()).append(tpl.clone());
-```
-
-clone
------
+Chain breaker getter
 
 Return a clone the first selected node and its children
 
-remove
-------
+### remove
+
+Chainable setter
 
 Remove all selected elements
 

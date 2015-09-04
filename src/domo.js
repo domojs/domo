@@ -1,6 +1,6 @@
 define('domo', function (require) {
   'use strict';
-  
+
   var isString = require('mu.is.string'),
       partial  = require('mu.fn.partial'),
       plug     = require('mu.api.plug');
@@ -10,20 +10,44 @@ define('domo', function (require) {
     if (isString(selector)) { return context.querySelectorAll(selector); }
     return selector;
   };
-  
+
   return {
     use: partial(plug, query)
   };
 });
 
-define('domo.native', function () {
+define('domo.each', function () {
   'use strict';
-  
-  var native = function (node, callback) {
+
+  var each = function (node, callback) {
     callback(node);
   };
 
-  return native;
+  return each;
+});
+
+/**
+ * builtin plugins
+ * ===============
+ */
+
+/**
+* html content
+* ------------
+*
+* *   html
+* *   empty
+* *   append
+*/
+
+define('domo.html', function () {
+  'use strict';
+
+  var html = function (node, content) {
+    node.innerHTML = content;
+  };
+
+  return html;
 });
 
 define('domo.empty', function () {
@@ -53,101 +77,149 @@ define('domo.append', function (require) {
   return append;
 });
 
-define('domo.html', function () {
+/**
+* properties
+* ----------
+*
+* *   attr
+* *   css
+*/
+
+define('domo.attr', function (require) {
   'use strict';
 
-  var html = function (node, content) {
-    node.innerHTML = content;
+  var isDefined = require('mu.is.defined'),
+      isString  = require('mu.is.string'),
+      apply     = require('mu.fn.apply'),
+      partial   = require('mu.fn.partial'),
+      each      = require('mu.list.each');
+      reduce    = require('mu.list.reduce');
+
+  var elementAttributes = function (node) {
+    return reduce(node.attributes, {}, function (acc, item) {
+      acc[item.name] = item.value;
+      return acc;
+    });
   };
 
-  return html;
-});
-
-define('domo.on', function () {
-  'use strict';
-  
-  var on = function (node, event, fn) {
-    node.addEventListener(event, fn);
+  var attribute = function (node, attr, value) {
+    if (isDefined(value)) { node[attr] = value; }
+    else { return node[attr]; }
   };
-  
-  return on;
+
+  var attributes = function (node, attrs) {
+    each(attrs, partial(attribute, node));
+  };
+
+  var attr = function (node, /* attr | attr, value | { attr: value } */) {
+    var args = [].slice.call(arguments, 1);
+    if (!args.length) { return elementAttributes(node); }
+    if (isString(args[0])) { return apply(partial(attribute, node), args); }
+    return apply(partial(attributes, node), args);
+  };
+
+  return attr;
 });
 
 define('domo.css', function (require) {
   'use strict';
-  
-  var each = require('mu.list.each');
-  
-  var css = function (node, attrs) {
-    each(attrs, function (value, attr) {
-      node.style[attr] = value;
-    });
+
+  var isDefined = require('mu.is.defined'),
+      isString  = require('mu.is.string'),
+      apply     = require('mu.fn.apply'),
+      partial   = require('mu.fn.partial'),
+      each      = require('mu.list.each');
+
+  var style = function (node, attr, value) {
+    if (isDefined(value)) { node.style[attr] = value; }
+    else { return node.style[attr]; }
   };
-  
+
+  var styles = function (node, attrs) {
+    each(attrs, partial(style, node));
+  };
+
+  var css = function (node, /* attr | attr, value | { attr: value } */) {
+    var args = [].slice.call(arguments, 1);
+    if (isString(args[0])) { return apply(partial(style, node), args); }
+    return apply(partial(styles, node), args);
+  };
+
   return css;
 });
 
+/**
+* class
+* -----
+*
+* *   classList
+* *   hasClass
+* *   addClass
+* *   removeClass
+* *   toggleClass
+*/
+
 define('domo.classList', function () {
   'use strict';
-  
+
   var classList = function (node) {
     var raw = node.className,
         list = raw.length ? raw.split(' ') : [];
-    
+
     return list;
   };
-  
+
   return classList;
 });
 
 define('domo.hasClass', function (require) {
   'use strict';
-  
+
   var contains  = require('mu.list.contains'),
       classList = require('domo.classList');
-  
+
   var hasClass = function (node, className) {
-    return contains(classList(node), className); 
+    return contains(classList(node), className);
   };
-  
+
   return hasClass;
 });
 
 define('domo.addClass', function (require) {
   'use strict';
-  
+
   var contains  = require('mu.list.contains'),
       classList = require('domo.classList');
-  
+
   var addClass = function (node, className) {
     var list = classList(node);
     if (contains(list, className)) { return }
     list.push(className);
     node.className = list.join(' ');
   };
-  
+
   return addClass;
 });
 
 define('domo.removeClass', function (require) {
   'use strict';
-  
+
   var isDefined = require('mu.is.defined'),
       remove    = require('mu.list.remove'),
       classList = require('domo.classList');
-  
+
   var removeClass = function (node, className) {
     var list = classList(node);
     if (!isDefined(remove(list, className))) { return; }
     node.className = list.join(' ');
   };
-  
+
   return removeClass;
 });
 
 define('domo.toggleClass', function (require) {
   'use strict';
-  
+
   var hasClass    = require('domo.hasClass'),
       addClass    = require('domo.addClass'),
       removeClass = require('domo.removeClass');
@@ -156,19 +228,16 @@ define('domo.toggleClass', function (require) {
     if (hasClass(node, className)) { removeClass(node, className); }
     else { addClass(node, className); }
   };
-  
+
   return toggleClass;
 });
 
-define('domo.attr', function () {
-  'use strict';
-
-  var attr = function (node, attrName) {
-    return node[attrName];
-  };
-
-  return attr;
-});
+/**
+* user input
+* ----------
+*
+* *   val
+*/
 
 define('domo.val', function (require) {
   'use strict';
@@ -182,6 +251,31 @@ define('domo.val', function (require) {
 
   return val;
 });
+
+/**
+* event listeners
+* ---------------
+*
+* *   on
+*/
+
+define('domo.on', function () {
+  'use strict';
+
+  var on = function (node, event, fn) {
+    node.addEventListener(event, fn);
+  };
+
+  return on;
+});
+
+/**
+* tree manipulation
+* -----------------
+*
+* *   clone
+* *   remove
+*/
 
 define('domo.clone', function () {
   'use strict';
