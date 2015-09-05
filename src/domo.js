@@ -27,12 +27,8 @@ define('domo', function (require) {
   };
 
   var fragment = function (html) {
-    var doc = document.createDocumentFragment(),
-        div = document.createElement('div'),
-        it;
-
-    div.innerHTML = html;
-    while (it = div.firstChild) { doc.appendChild(it); }
+    var doc = document.createDocumentFragment();
+    doc.body.innerHTML = html;
     return doc;
   };
 
