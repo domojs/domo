@@ -92,19 +92,19 @@ HTML content
 
 ### html
 
-Chainable setter
+*chain-breaker getter / chainable setter*
 
 Replace HTML from selected elements
 
 ### empty
 
-Chainable setter
+*chainable setter*
 
 Remove all children of selected elements
 
 ### append
 
-Chainable setter
+*chainable setter*
 
 Append HTML or DOM nodes to selected elements
 
@@ -126,13 +126,13 @@ Properties
 
 ### attr
 
-Chain breaker getter / chainable setter
+*chain-breaker getter / chainable setter*
 
 Return the attribute value of the first selected element
 
 ### css
 
-Chain breaker getter / chainable setter
+*chain-breaker getter / chainable setter*
 
 Alter CSS properties of selected elements
 
@@ -141,31 +141,31 @@ Class
 
 ### classList
 
-Chain breaker getter
+*chain-breaker getter*
 
 Get an array of classes of the first selected element
 
 ### hasClass
 
-Chain breaker getter
+*chain-breaker getter*
 
 Check if a class is in the first selected element
 
 ### addClass
 
-Chainable setter
+*chainable setter*
 
 Add a class to selected elements
 
 ### removeClass
 
-Chainable setter
+*chainable setter*
 
 Remove a class of selected elements
 
 ### toggleClass
 
-Chainable setter
+*chainable setter*
 
 Add or remove a class to selected elements depending on the presence of the
 class
@@ -175,7 +175,7 @@ User input
 
 ### val
 
-Chain breaker getter / chain breaker setter
+*chain-breaker getter / chain-breaker setter*
 
 If an argument is passed it is assigned to the first selected element value
 
@@ -205,7 +205,7 @@ Event listeners
 
 ### on
 
-Chainable setter
+*chainable setter*
 
 Add event listeners to selected elements
 
@@ -214,13 +214,13 @@ Tree manipulation
 
 ### clone
 
-Chain breaker getter
+*chain-breaker getter*
 
 Return a clone the first selected node and its children
 
 ### remove
 
-Chainable setter
+*chainable setter*
 
 Remove all selected elements
 

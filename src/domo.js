@@ -93,11 +93,14 @@ define('domo', function (require) {
 * *   append
 */
 
-define('domo.html', function () {
+define('domo.html', function (require) {
   'use strict';
 
+  var isDefined = require('mu.is.defined');
+
   var html = function (node, content) {
-    node.innerHTML = content;
+    if (isDefined(content)) { node.innerHTML = content; }
+    else { return node.innerHTML; }
   };
 
   return html;
