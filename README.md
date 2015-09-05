@@ -128,7 +128,44 @@ Properties
 
 *chain-breaker getter / chainable setter*
 
-Return the attribute value of the first selected element
+#### `.attr()`
+
+Returns an object with all HTML attributes of the first selected element
+
+```html
+<div class="alert" id="main-alert-bar"></div>
+```
+
+```js
+dom('.alert').attr();
+```
+
+```
+> {
+    class: 'alert',
+    id: 'main-alert-bar'
+  }
+```
+
+#### `.attr(attrName)`
+
+Returns the attribute value of the first selected element
+
+```js
+dom('.alert').attr('id');
+```
+
+```
+> 'main-alert-bar'
+```
+
+#### `.attr(attrName, value)`
+
+Updates the value of the provided attribute in all selected elements
+
+#### `.attr(attributes)`
+
+Updates the value of all providede attributes in all selected elements
 
 ### css
 
