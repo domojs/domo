@@ -25,8 +25,8 @@ dom('h1').on('click', function () {
 API
 ===
 
-Selectors
----------
+CSS Selectors
+-------------
 
 **domo** uses `querySelectorAll` internally
 
@@ -57,6 +57,20 @@ HTML strings are detected if its 1st character is `<`
 In such cases, a new document fragment is created and filled with the
 provided markup. The fragment is not attached to the DOM tree
 
+Selections as Selectors
+-----------------------
+
+**domo** selections are also supported as selectors
+
+Filters
+-------
+
+**domo** can receive multiple selectors
+
+Initial selection will be filtered through the following selectors
+
+Only CSS selectors can be used as filters
+
 Iterate over selected nodes
 ---------------------------
 
@@ -68,8 +82,10 @@ dom('button').each(function (node) {
 });
 ```
 
-Builtin plugins
-===============
+Packaged plugins
+================
+
+**domo** is packaged with plugins covering the most common tasks
 
 HTML content
 ------------
