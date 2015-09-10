@@ -1,4 +1,4 @@
-define('domo', function (require) {
+define('mu.dom', function (require) {
   'use strict';
 
   var isString   = require('mu.is.string'),
@@ -17,7 +17,7 @@ define('domo', function (require) {
     return isString(selector) && selector[0] === '<';
   };
 
-  var isDomoSelection = function (selector) {
+  var isdomSelection = function (selector) {
     return isFunction(selector.each);
   };
 
@@ -32,7 +32,7 @@ define('domo', function (require) {
     return doc;
   };
 
-  var domoSelection = function (selection) {
+  var domSelection = function (selection) {
     var nodes = [];
 
     selection.each(function (node) {
@@ -45,13 +45,13 @@ define('domo', function (require) {
   var selectNodes = function (recipe) {
     if (isQuery(recipe)) { return query(recipe); }
     if (isFragment(recipe)) { return fragment(recipe); }
-    if (isDomoSelection(recipe)) { return domoSelection(recipe); }
+    if (isdomSelection(recipe)) { return domSelection(recipe); }
 
     // DOM element is assumed otherwise
     return recipe;
   };
 
-  var domo = function (recipe /* , filters... */) {
+  var dom = function (recipe /* , filters... */) {
     var filters = [].slice.call(arguments, 1),
         nodes = selectNodes(recipe);
 
@@ -73,7 +73,7 @@ define('domo', function (require) {
   };
 
   var use = function (plugins) {
-    return plug(domo, merge(plugins, builtin));
+    return plug(dom, merge(plugins, builtin));
   };
 
   return { use: use };

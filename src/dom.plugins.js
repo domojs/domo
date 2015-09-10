@@ -7,7 +7,7 @@
 * *   append
 */
 
-define('domo.html', function (require) {
+define('mu.dom.html', function (require) {
   'use strict';
 
   var isDefined = require('mu.is.defined');
@@ -20,7 +20,7 @@ define('domo.html', function (require) {
   return html;
 });
 
-define('domo.empty', function () {
+define('mu.dom.empty', function () {
   'use strict';
 
   var empty = function (node) {
@@ -30,7 +30,7 @@ define('domo.empty', function () {
   return empty;
 });
 
-define('domo.append', function (require) {
+define('mu.dom.append', function (require) {
   'use strict';
 
   var isString = require('mu.is.string');
@@ -55,7 +55,7 @@ define('domo.append', function (require) {
 * *   css
 */
 
-define('domo.attr', function (require) {
+define('mu.dom.attr', function (require) {
   'use strict';
 
   var isDefined = require('mu.is.defined'),
@@ -91,7 +91,7 @@ define('domo.attr', function (require) {
   return attr;
 });
 
-define('domo.css', function (require) {
+define('mu.dom.css', function (require) {
   'use strict';
 
   var isDefined = require('mu.is.defined'),
@@ -129,7 +129,7 @@ define('domo.css', function (require) {
 * *   toggleClass
 */
 
-define('domo.classList', function () {
+define('mu.dom.classList', function () {
   'use strict';
 
   var classList = function (node) {
@@ -142,11 +142,11 @@ define('domo.classList', function () {
   return classList;
 });
 
-define('domo.hasClass', function (require) {
+define('mu.dom.hasClass', function (require) {
   'use strict';
 
   var contains  = require('mu.list.contains'),
-      classList = require('domo.classList');
+      classList = require('mu.dom.classList');
 
   var hasClass = function (node, className) {
     return contains(classList(node), className);
@@ -155,11 +155,11 @@ define('domo.hasClass', function (require) {
   return hasClass;
 });
 
-define('domo.addClass', function (require) {
+define('mu.dom.addClass', function (require) {
   'use strict';
 
   var contains  = require('mu.list.contains'),
-      classList = require('domo.classList');
+      classList = require('mu.dom.classList');
 
   var addClass = function (node, className) {
     var list = classList(node);
@@ -171,12 +171,12 @@ define('domo.addClass', function (require) {
   return addClass;
 });
 
-define('domo.removeClass', function (require) {
+define('mu.dom.removeClass', function (require) {
   'use strict';
 
   var isDefined = require('mu.is.defined'),
       remove    = require('mu.list.remove'),
-      classList = require('domo.classList');
+      classList = require('mu.dom.classList');
 
   var removeClass = function (node, className) {
     var list = classList(node);
@@ -187,12 +187,12 @@ define('domo.removeClass', function (require) {
   return removeClass;
 });
 
-define('domo.toggleClass', function (require) {
+define('mu.dom.toggleClass', function (require) {
   'use strict';
 
-  var hasClass    = require('domo.hasClass'),
-      addClass    = require('domo.addClass'),
-      removeClass = require('domo.removeClass');
+  var hasClass    = require('mu.dom.hasClass'),
+      addClass    = require('mu.dom.addClass'),
+      removeClass = require('mu.dom.removeClass');
 
   var toggleClass = function (node, className) {
     if (hasClass(node, className)) { removeClass(node, className); }
@@ -209,7 +209,7 @@ define('domo.toggleClass', function (require) {
 * *   val
 */
 
-define('domo.val', function (require) {
+define('mu.dom.val', function (require) {
   'use strict';
 
   var isDefined = require('mu.is.defined')
@@ -229,7 +229,7 @@ define('domo.val', function (require) {
 * *   on
 */
 
-define('domo.on', function () {
+define('mu.dom.on', function () {
   'use strict';
 
   var on = function (node, event, fn) {
@@ -247,7 +247,7 @@ define('domo.on', function () {
 * *   remove
 */
 
-define('domo.clone', function () {
+define('mu.dom.clone', function () {
   'use strict';
 
   var clone = function (node) {
@@ -257,7 +257,7 @@ define('domo.clone', function () {
   return clone;
 });
 
-define('domo.remove', function () {
+define('mu.dom.remove', function () {
   'use strict';
 
   var remove = function (node) {
