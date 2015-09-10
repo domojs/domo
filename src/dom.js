@@ -72,9 +72,5 @@ define('mu.dom', function (require) {
     }
   };
 
-  var use = function (plugins) {
-    return plug(dom, merge(plugins, builtin));
-  };
-
-  return { use: use };
+  return { use: plug(dom, builtin) };
 });
