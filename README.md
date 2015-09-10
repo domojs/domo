@@ -1,5 +1,5 @@
-domo
-====
+dom
+===
 
 Pluggable DOM selector
 
@@ -7,10 +7,10 @@ Usage
 =====
 
 ```js
-var dom = require('domo').use({
-  html:   require('domo.html'),
-  css:    require('domo.css'),
-  on:     require('domo.on')
+var dom = require('dom').use({
+  html:   require('dom.html'),
+  css:    require('dom.css'),
+  on:     require('dom.on')
 });
 
 var body = dom('body')
@@ -28,16 +28,16 @@ API
 CSS Selectors
 -------------
 
-**domo** uses `querySelectorAll` internally
+**dom** uses `querySelectorAll` internally
 
 [CSS selector syntax](http://www.w3.org/TR/CSS2/selector.html)
 
 Empty selectors
 ---------------
 
-**domo** uses [mujs plug](http://github.com/mujs/mu.api) as a plugin system
+**dom** uses [mujs plug](http://github.com/mujs/mu.api) as a plugin system
 
-with null selectors **domo** plugins are not called but they keep returning the
+with null selectors **dom** plugins are not called but they keep returning the
 chain preventing `TypeError` exceptions
 
 ```js
@@ -50,7 +50,7 @@ nothing but don't crash
 Document fragments
 ------------------
 
-**domo** accepts a HTML string as input instead of a selector
+**dom** accepts a HTML string as input instead of a selector
 
 HTML strings are detected if its 1st character is `<`
 
@@ -60,7 +60,7 @@ provided markup. The fragment is not attached to the DOM tree
 Selections as Selectors
 -----------------------
 
-**domo** selections are also supported as selectors
+**dom** selections are also supported as selectors
 
 Filters
 -------
@@ -85,7 +85,7 @@ dom('button').each(function (node) {
 Packaged plugins
 ================
 
-**domo** is packaged with plugins covering the most common tasks
+**dom** is packaged with plugins covering the most common tasks
 
 HTML content
 ------------
